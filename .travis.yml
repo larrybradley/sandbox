@@ -40,6 +40,8 @@ env:
         # TOXARGS are arguments passed to tox, and TOXPOSARGS are arguments
         # that tox passes through to the {posargs} indicator in tox.ini.
         # The latter can be used for example to pass arguments to pytest.
+
+
         - TOXENV='test'
         - TOXARGS='-v'
         - TOXPOSARGS=''
@@ -72,6 +74,17 @@ matrix:
         #   name: Code style checks
         #   stage: Initial tests
         #   env: TOXENV=codestyle
+
+before_install:
+
+    - if [[ $TOXENV == *-cov ]]; then
+        export TOXPOSARGS=$TOXPOSARGS" --cov-report=xml:"$TRAVIS_BUILD_DIR"/coverage.xml";
+      fi
+
+    - echo "TOXENV="$TOXENV
+    - echo "TOXARGS="$TOXARGS
+    - echo "TOXPOSARGS="$TOXPOSARGS
+
 
 install:
 
