@@ -1,16 +1,14 @@
-name: Mark stale issues and pull requests
-
+name: Close stale pull requests
 on:
   schedule:
     - cron: "* * * * *"
 
 jobs:
   stale:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v3.0.12
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-pr-message: 'This pull request has been open 6 months with no activity. It will be closed in 30 days unless new commits or comments are added.'
