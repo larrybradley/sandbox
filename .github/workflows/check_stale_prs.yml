@@ -1,0 +1,20 @@
+name: Close stale pull requests
+on:
+  schedule:
+    # trigger workflow every 60 minutes
+    - cron: '*/60 * * * *'
+
+jobs:
+  check-for-stale-prs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/stale@v3.0.12
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-pr-message: 'This pull request has been open 6 months with no activity. It will be closed in 30 days unless new commits or comments are added.'
+        close-pr-message: 'Closing this pull request.'
+        days-before-stale: 5
+        days-before-close: 1
+        stale-pr-label: 'stale'
+        exempt-pr-labels: 'keep-open'
